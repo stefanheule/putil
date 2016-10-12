@@ -8,10 +8,21 @@
 
 import subprocess
 import threading
-
+import sys
 
 def execute(cmd, timeout = None):
+  """
+  Execute a command and return it's output.
+  """
   return Command(cmd).run(timeout)
+
+
+def error(message = "Unspecified error occured"):
+  """
+  Output an error message and quit
+  """
+  sys.stderr.write("ERROR: %s\n" % (message))
+  sys.exit(1)
 
 
 # taken from http://stackoverflow.com/questions/1191374/subprocess-with-timeout
