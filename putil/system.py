@@ -17,6 +17,17 @@ def execute(cmd, timeout = None):
   return Command(cmd).run(timeout)
 
 
+def execute_ok(cmd, timeout = None):
+  """
+  Execute a command and return it's output, and ensure it finishes without an error
+  """
+  (ret, out) = Command(cmd).run(timeout)
+  if ret != 0:
+    print(out)
+    error("Command '" + cmd + "' finished with an error code of " + ret + ".")
+  return out
+
+
 def error(message = "Unspecified error occured"):
   """
   Output an error message and quit
