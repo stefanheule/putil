@@ -24,7 +24,8 @@ def execute_ok(cmd, timeout = None):
   (ret, out) = Command(cmd).run(timeout)
   if ret != 0:
     print(out)
-    error("Command '" + cmd + "' finished with an error code of " + ret + ".")
+    print("")
+    error("Command '%s' finished with an error code of %d." % (cmd, ret))
   return out
 
 
