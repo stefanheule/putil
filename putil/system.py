@@ -10,18 +10,18 @@ import subprocess
 import threading
 import sys
 
-def execute(cmd, timeout = None):
+def execute(cmd, timeout = None, workdir = None):
   """
   Execute a command and return it's output.
   """
-  return Command(cmd).run(timeout)
+  return Command(cmd).run(timeout, workdir=workdir)
 
 
-def execute_ok(cmd, timeout = None):
+def execute_ok(cmd, timeout = None, workdir = None):
   """
   Execute a command and return it's output, and ensure it finishes without an error
   """
-  (ret, out) = Command(cmd).run(timeout)
+  (ret, out) = Command(cmd).run(timeout, workdir=workdir)
   if ret != 0:
     print(out)
     print("")
@@ -45,9 +45,9 @@ class Command(object):
     self.output = ""
     self.error = ""
 
-  def run(self, timeout):
+  def run(self, timeout, workdir = None):
     def target():
-      self.process = subprocess.Popen(self.cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+      self.process = subprocess.Popen(self.cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd = workdir)
       self.output = self.process.stdout.read()
       self.error = self.process.stderr.read()
       self.child = self.process.communicate()[0]
