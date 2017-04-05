@@ -13,7 +13,10 @@
 # COL_GREY="\033[38;5;244m"
 # COL_NO_COLOR="\033[0m"
 
-from builtins import str
+try:
+    UNICODE_EXISTS = bool(type(unicode))
+except NameError:
+    unicode = lambda s: str(s)
 
 def grey(val):
   return "\033[38;5;244m" + str(val) + "\033[0m"

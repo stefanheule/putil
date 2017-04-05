@@ -12,7 +12,9 @@ import sys
 
 from . import system
 from . import stats
+from . import color
 
+show_cmd = False
 
 def default_config():
   return {
@@ -45,6 +47,8 @@ def cost(config=default_config(), cost=None, target=None, rewrite=None, testcase
   cmd += a(c, "live_out", live_out)
   cmd += a(c, "max_jumps", None)
   (res, out) = system.execute(cmd)
+  if show_cmd:
+    print(color.grey(cmd))
   if res is not 0: return None
   import re
   match = re.search("Cost: ([0-9]+)", out, re.MULTILINE)
@@ -53,4 +57,4 @@ def cost(config=default_config(), cost=None, target=None, rewrite=None, testcase
 
 
 def sample_cost(n, **kwargs):
-  return stats.sample(n, lambda: cost(**kwargs), maxtries=10)
+  return stats.sample(n, lambda: cost(**kwargs), maxtries=0)

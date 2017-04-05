@@ -7,6 +7,7 @@
 # ------------------------------------------------------------------------------
 
 import numpy as np
+import sys
 
 def sample(n, cmd, maxtries = 10):
   res = []
